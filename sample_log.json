@@ -1,0 +1,10 @@
+{
+  "host": "localhost"
+  , "timestamp": 12345
+  , "application": "sample app"
+  , "location": "foobar.rb:123"
+  , "tags": ["tag1", "tag2"]
+  , "severity": "info"
+  , "message": "this is a sample"
+  , "message_keywords": ["this", "is", "a", "sample"]
+}

@@ -5,8 +5,12 @@
 
 var express = require('express')
   , routes = require('./routes')
+  , mongoose = require("mongoose")
 
 var app = module.exports = express.createServer();
+
+// MongoDB connection
+var mongoHost = process.env["CABIN_MONGODB_HOST"] || "localhost";
 
 // Configuration
 
@@ -23,10 +27,14 @@ app.configure(function(){
 
 app.configure('development', function(){
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  var mongoDatabase = process.env["CABIN_MONGODB_DATABASE"] || "cabin_development";
+  mongoose.connect("mongodb://" + mongoHost + "/" + mongoDatabase);
 });
 
 app.configure('production', function(){
   app.use(express.errorHandler()); 
+  var mongoDatabase = process.env["CABIN_MONGODB_DATABASE"] || "cabin_production";
+  mongoose.connect("mongodb://" + mongoHost + "/" + mongoDatabase);
 });
 
 // Routes
