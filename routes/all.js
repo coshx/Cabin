@@ -1,12 +1,11 @@
 var models = require("../models/models");
 
 module.exports = function(req, res){
-  console.log("hi");
-  json = "";
+  ret = {logs: []};
   models.AppLog.find({}, function(err, logs) {    
     logs.forEach(function(log, index) {
-      json += JSON.stringify(log);
+      ret.logs.push(log);
     });
-    res.end(json);
+    res.send(ret);
   });
 }

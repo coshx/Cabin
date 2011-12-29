@@ -1,2 +1,47 @@
 h1 Cabin
 p Welcome to #{title}
+.query
+
+script(id="query-template", type="text/x-handlebars-template").
+  <div class="query">
+    <form id="query-form">
+      <input type="text" />
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
+  <div class="query-all">
+    <a id="get-all" href="#">Get All Logs! ALL OF THEM</a>
+  </div>
+  <div id="results">
+  </div>
+  
+script(id="logs-list-template", type="text/x-handlebars-template").
+  <ul class="logs-list">
+    {{#each logs}}
+      <li class="log">
+        <div class="log-body">
+          <p>{{this.host}}</p>
+          <p>{{this.timestamp}}</p>
+          <p>{{this.severity}}</p>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+  
+script(type="text/javascript")
+  $(document).ready(function() {
+    var queryTemplate = $("#query-template").html();
+    var template = Handlebars.compile(queryTemplate);
+    $(".query").html(template());
+    
+    $("#get-all").click(function() {
+      $.get("/all.json", function(data) {
+        var resultsTemplate = $("#logs-list-template").html();
+        var results = Handlebars.compile(resultsTemplate);
+        var renderedLogs = results({logs: data.logs});
+        $("#results").html(renderedLogs);
+      });
+    });
+  });
+  

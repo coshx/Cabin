@@ -40,7 +40,7 @@ app.configure('production', function(){
 // Routes
 // console.log(routes);
 app.get('/', routes.index);
-app.get("/all", routes.all);
+app.get("/all.json", routes.all);
 app.post("/", routes.postLog);
 
 app.listen(3000);
