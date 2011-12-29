@@ -35,9 +35,9 @@ script(id="logs-list-template", type="text/x-handlebars-template").
 
 script(type="text/javascript")
   $(document).ready(function() {
-  Handlebars.registerHelper("logsTags", function(tags)) {
-    return tags.join(", ");
-  }
+    Handlebars.registerHelper("logTags", function(tags) {
+      return tags.join(", ");
+    });
 
     var queryTemplate = $("#query-template").html();
     var template = Handlebars.compile(queryTemplate);
