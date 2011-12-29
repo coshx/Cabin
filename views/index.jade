@@ -23,7 +23,12 @@ script(id="logs-list-template", type="text/x-handlebars-template").
         <div class="log-body">
           <p>{{this.host}}</p>
           <p>{{this.timestamp}}</p>
+          <p>{{this.application}}</p>
+          <p>{{this.location}}</p>
+          <p>{{this.tags}}</p>
           <p>{{this.severity}}</p>
+          <p>{{this.message}}</p>
+          <p>{{this.messageKeywords}}</p>
         </div>
       </li>
     {{/each}}
