@@ -15,7 +15,7 @@ script(id="query-template", type="text/x-handlebars-template").
   </div>
   <div id="results">
   </div>
-  
+
 script(id="logs-list-template", type="text/x-handlebars-template").
   <ul class="logs-list">
     {{#each logs}}
@@ -25,20 +25,24 @@ script(id="logs-list-template", type="text/x-handlebars-template").
           <p>{{this.timestamp}}</p>
           <p>{{this.application}}</p>
           <p>{{this.location}}</p>
-          <p>{{this.tags}}</p>
+          <p>{{logTags this.tags}}</p>
           <p>{{this.severity}}</p>
           <p>{{this.message}}</p>
         </div>
       </li>
     {{/each}}
   </ul>
-  
+
 script(type="text/javascript")
   $(document).ready(function() {
+  Handlebars.registerHelper("logsTags", function(tags)) {
+    return tags.join(", ");
+  }
+
     var queryTemplate = $("#query-template").html();
     var template = Handlebars.compile(queryTemplate);
     $(".query").html(template());
-    
+
     $("#get-all").click(function() {
       $.get("/all.json", function(data) {
         var resultsTemplate = $("#logs-list-template").html();
@@ -48,4 +52,3 @@ script(type="text/javascript")
       });
     });
   });
-  
