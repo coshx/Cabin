@@ -6,5 +6,5 @@
   , "tags": ["tag1", "tag2"]
   , "severity": "info"
   , "message": "this is a sample"
-  , "message_keywords": ["this", "is", "a", "sample"]
+  , "messageKeywords": ["this", "is", "a", "sample"]
 }
