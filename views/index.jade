@@ -18,7 +18,16 @@ script(id="query-template", type="text/x-handlebars-template").
   <div class="query">
     <form id="query-form" method="get" action="/query.json">
       <p><label for="host">Host:</label><input type="text" name="host" placeholder="hostname" /></p>
-      <p><label for="timestamp">Timestamp:</label><input type="number" name="timestamp" placeholder="12345678"  /></p>
+      <p>
+        <p>
+          <label for="timestampFrom">Timestamp From:</label>
+          <input type="number" name="timestampFrom" placeholder="12345678"  />
+        </p>
+        <p>
+          <label for="timestampTo">Timestamp To:</label>
+          <input type="number" name="timestampTo" placeholder="23456789"  />
+        </p>
+      </p>
       <p><label for="application">Application:</label><input type="text" name="application" placeholder="Your App Name" /></p>
       <p><label for="location">Location:</label><input type="text" name="location" placeholder="MyFileName.rb:123 (line # optional)" /></p>
       <p><label for="tags">Tags:</label><input type="text" name="tags" placeholder="Tag1, Tag2, Tag3" /></p>

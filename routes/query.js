@@ -4,7 +4,7 @@ var getQueryParams = function(req) {
   var params = {};
   var foundParams = false;
   // get only the ones the user specified the value for to use in the query
-  ["host", "timestamp", "application", "location", "tags", "severity", "message"].forEach(function(possibleParam) {
+  ["host", "timestampFrom", "timestampTo", "application", "location", "tags", "severity", "message"].forEach(function(possibleParam) {
     var param = req.param(possibleParam);
     if(param !== '' && param !== null && param !== undefined) {
       params[possibleParam] = param;
@@ -30,8 +30,11 @@ module.exports = function(req, res){
     if (params["host"]) {
       query = query.where("host", params["host"]);
     }
-    if (params["timestamp"]) {
-      // hmm, how to do this...
+    if (params["timestampFrom"]) {
+      query = query.where("timestamp").gte(params["timestampFrom"]);
+    }
+    if (params["timestampTo"]) {
+      query = query.where("timestamp").lte(params["timestampTo"]);
     }
     if (params["application"]) {
       query = query.where("application", params["application"]);
