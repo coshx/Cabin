@@ -29,6 +29,6 @@ a {
   display: none;
 }
 
-.message-column {
-  max-width: 350px;
+.max-width-column {
+  max-width: 340px;
 }

@@ -2,12 +2,16 @@ var models = require("../models/models");
 
 module.exports = function(req, res){
   var log = new models.AppLog(req.body);
-  log.messageKeywords = log.message.split(/\s/);   // TODO: get rid of duplicates
+    
   var fileNameLineNumberSplit = log.location.split(":");
   log.locationFile = fileNameLineNumberSplit[0];
   if(fileNameLineNumberSplit.length === 2) { // don't try to save the line # if they didn't send it
     log.locationLine = fileNameLineNumberSplit[1];
   }
+  
+  log.tags = log.tags.toString().split(",");
+
+  log.messageKeywords = log.message.split(/\s/);   // TODO: get rid of duplicates
   
   log.save(function(err) {
     if (err) {

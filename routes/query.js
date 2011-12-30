@@ -1,5 +1,7 @@
 var models = require("../models/models");
 
+var fieldsToReturn = ["host", "timestamp", "application", "location", "tags", "severity", "message"];
+
 var getQueryParams = function(req) {
   var params = {};
   var foundParams = false;
@@ -21,12 +23,13 @@ var getQueryParams = function(req) {
 module.exports = function(req, res){
   var params = getQueryParams(req);
   if(params === false) {
-    models.AppLog.find({}, function(err, logs) {
+    models.AppLog.find({}, fieldsToReturn, {limit: 1000}, function(err, logs) {
       if (err) throw err;
       res.send({"logs": logs});
     });
   } else {
     var query = models.AppLog;  
+    
     if (params["host"]) {
       query = query.where("host", params["host"]);
     }
@@ -52,20 +55,22 @@ module.exports = function(req, res){
     }
     if (params["tags"]) {      
       var tags = params["tags"].split(",");
-      var trimmedTags = [];
-      tags.forEach(function(tag, index) {
-        trimmedTags.push(tag.trim());
-      });
-      query = query.where("tags").in(trimmedTags);
+      query = query.where("tags").all(tags);
+    }
+    if (params["message"]) {
+      var words = params["message"].split(/\s/);
+      query = query.where("messageKeywords").all(words);
     }
 
+    query = query.select(fieldsToReturn);
     query.exec(function(err, logs) {
-      ret = {logs: []};
-      if (err) {console.log(err); res.send(err, 401); return;};
-      logs.forEach(function(log, index) {
-        ret.logs.push(log);
-      });
-      res.send(ret);
+      if (err) {
+        console.log(err);
+        res.send(err, 401); 
+        return;
+      }
+      
+      res.send({"logs": logs});
     });
   }
 };

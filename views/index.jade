@@ -62,9 +62,9 @@ script(id="logs-list-template", type="text/x-handlebars-template").
           <td>{{this.timestamp}}</td>
           <td>{{this.application}}</td>
           <td>{{this.location}}</td>
-          <td>{{logTags this.tags}}</td>
+          <td class="max-width-column">{{logTags this.tags}}</td>
           <td>{{this.severity}}</td>
-          <td class="message-column">{{this.message}}</td>
+          <td class="max-width-column">{{this.message}}</td>
         </tr>
       {{/each}}
     </tbody>

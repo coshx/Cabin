@@ -9,7 +9,7 @@ var post_path = "/";
 
 severities = ["info", "debug", "error", "warn"];
 applications = ["foo", "bar", "baz", "capybara", "energize"];
-messages = ["file not found", "exited with code: 17", "Throttling respawn: Will start in 10 seconds", "database system was interrupted; last known up at 2011-12-23 21:56:05 EST", "FATAL:  lock file postmaster.pid already exists", "Rendered devise/sessions/new.html.haml within layouts/application (33.3ms)"]
+messages = ["file not found", "exited with code: 17", "Throttling respawn: Will start in 10 seconds", "database system was interrupted; last known up at 2011-12-23 21:56:05 EST", "FATAL:  lock file postmaster.pid already exists", "Rendered devise/sessions/new.html.haml within layouts/application (33.3ms)", "FATAL: lock file db_socket.pid already exists", "Rendered devise/sessions/new.html.haml within layouts/other (24.3 ms)"]
 tags = ["lorem", "ipsum", "dolor", "amet", "consectetur", "adipisicing", "elit", "sed", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua"];
 
 function h() {
@@ -43,8 +43,13 @@ function m(index) {
 }
 
 function ta(index) {
-  var tag = tags[eval(index % tags.length)];
-  return tag;
+  var numTags = Math.floor(Math.random() * 3) + 1
+  var cumulativeTags = [];
+  for(var i = 0; i < numTags; ++i) {
+    var rand = Math.floor(Math.random() * tags.length);
+    cumulativeTags.push(tags[rand]);
+  }
+  return cumulativeTags.join(", ");
 }
 
 console.log("populating the database with 100 records");
