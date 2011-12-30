@@ -2,6 +2,10 @@ h1 Cabin
 p Welcome to #{title}
 .query
 
+h2#result-header(style="display:none;") Here's what I found...
+h2#empty-results-header(style="display:none;") Err... nevermind, didn't find anything. Try again!
+#results
+
 script(id="query-template", type="text/x-handlebars-template").
   <div class="query">
     <form id="query-form" method="get" action="/query.json">
@@ -12,15 +16,10 @@ script(id="query-template", type="text/x-handlebars-template").
       <p><label for="tags">Tags:</label><input type="text" name="tags" placeholder="Tag1, Tag2, Tag3" /></p>
       <p><label for="severity">Severity:</label><input type="text" name="severity" placeholder="info" /></p>
       <p><label for="message">Message:</label><input type="text" name="message" placeholder="Client ABC tried to access /blah" /></p>
-      <p><input type="submit" value="Query Away!" /></p>
+      <p><input type="submit" value="Query Away!" />&nbsp;&nbsp;<input type="reset" value="Clear This Form!" /></p>
     </form>
   </div>
-  <div class="query-all">
-    <a id="get-all" href="#">Get All Logs! ALL OF THEM</a>
-  </div>
-  <div id="results">
-  </div>
-
+  
 script(id="logs-list-template", type="text/x-handlebars-template").
   <ul class="logs-list">
     {{#each logs}}
@@ -61,6 +60,15 @@ script(type="text/javascript")
       e.preventDefault();
       var query = $(this).serialize();
       $.get("/query.json?" + query, function(data) {
+        $("#result-header").show();
+        $("#results").empty();
+        if (data.logs.length === 0) {
+          $("#empty-results-header").show();
+          return;
+        } else {
+          $("#empty-results-header").hide();
+        }
+        
         var resultsTemplate = $("#logs-list-template").html();
         var results = Handlebars.compile(resultsTemplate);
         var renderedLogs = results({logs: data.logs});
