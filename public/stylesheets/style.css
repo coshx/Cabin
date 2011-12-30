@@ -10,3 +10,25 @@ a {
 #query-form p label {
   text-align: left;
 }
+
+#result-header {
+  display: none; /* hidden at first, shown via JS */
+  margin-bottom: 10px;
+}
+
+#result-header h2 {
+  display: inline;
+}
+
+#clear-results-button {
+  margin-bottom: 10px;
+  vertical-align: middle;
+}
+
+#empty-results-header {
+  display: none;
+}
+
+.message-column {
+  max-width: 350px;
+}
