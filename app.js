@@ -39,8 +39,9 @@ app.configure('production', function(){
 
 // Routes
 // console.log(routes);
-app.get('/', routes.index);
+app.get("/", routes.index);
 app.get("/all.json", routes.all);
+app.get("/query.json", routes.query);
 app.post("/", routes.postLog);
 
 app.listen(3000);

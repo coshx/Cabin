@@ -4,10 +4,15 @@ p Welcome to #{title}
 
 script(id="query-template", type="text/x-handlebars-template").
   <div class="query">
-    <form id="query-form">
-      <input type="text" />
-      <br />
-      <input type="submit" value="Submit" />
+    <form id="query-form" method="get" action="/query.json">
+      <p><label for="host">Host:</label><input type="text" name="host" placeholder="hostname" /></p>
+      <p><label for="timestamp">Timestamp:</label><input type="number" name="timestamp" placeholder="12345678"  /></p>
+      <p><label for="application">Application:</label><input type="text" name="application" placeholder="Your App Name" /></p>
+      <p><label for="location">Location:</label><input type="text" name="location" placeholder="MyFileName.rb:123" /></p>
+      <p><label for="tags">Tags:</label><input type="text" name="tags" placeholder="Tag1, Tag2, Tag3" /></p>
+      <p><label for="severity">Severity:</label><input type="text" name="severity" placeholder="info" /></p>
+      <p><label for="message">Message:</label><input type="text" name="message" placeholder="Client ABC tried to access /blah" /></p>
+      <p><input type="submit" value="Query Away!" /></p>
     </form>
   </div>
   <div class="query-all">
@@ -50,5 +55,16 @@ script(type="text/javascript")
         var renderedLogs = results({logs: data.logs});
         $("#results").html(renderedLogs);
       });
+    });
+    
+    $("#query-form").submit(function(e) {
+      e.preventDefault();
+      var query = $(this).serialize();
+      $.get("/query.json?" + query, function(data) {
+        var resultsTemplate = $("#logs-list-template").html();
+        var results = Handlebars.compile(resultsTemplate);
+        var renderedLogs = results({logs: data.logs});
+        $("#results").html(renderedLogs);        
+      });      
     });
   });
