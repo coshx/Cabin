@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -13,7 +12,6 @@ var app = module.exports = express.createServer();
 var mongoHost = process.env["CABIN_MONGODB_HOST"] || "localhost";
 
 // Configuration
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
