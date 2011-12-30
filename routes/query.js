@@ -39,10 +39,26 @@ module.exports = function(req, res){
     if (params["severity"]) {
       query = query.where("severity", params["severity"]);
     }
+    if (params["location"]) {
+      var fileLineSplit = params["location"].split(":");
+      if (fileLineSplit.length === 2) { // they specified a file and line number
+        query = query.where("location", params["location"]);
+      } else { // they only gave the filename
+        query = query.where("locationFile", params["location"]);
+      }
+    }
+    if (params["tags"]) {      
+      var tags = params["tags"].split(",");
+      var trimmedTags = [];
+      tags.forEach(function(tag, index) {
+        trimmedTags.push(tag.trim());
+      });
+      query = query.where("tags").in(trimmedTags);
+    }
 
     query.exec(function(err, logs) {
       ret = {logs: []};
-      if (err) throw err;
+      if (err) {console.log(err); res.send(err, 401); return;};
       logs.forEach(function(log, index) {
         ret.logs.push(log);
       });
