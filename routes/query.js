@@ -22,10 +22,11 @@ var getQueryParams = function(req) {
 
 module.exports = function(req, res){
   var params = getQueryParams(req);
+  
   if(params === false) {
-    models.AppLog.find({}, fieldsToReturn, {limit: 1000}, function(err, logs) {
+    models.AppLog.find({}, fieldsToReturn, {limit: req.param("limit")}, function(err, logs) {
       if (err) throw err;
-      res.send({"logs": logs});
+      res.send({"logs": logs, "count": logs.length});
     });
   } else {
     var query = models.AppLog;  
@@ -63,6 +64,7 @@ module.exports = function(req, res){
     }
 
     query = query.select(fieldsToReturn);
+    query = query.limit(req.param("limit"));
     query.exec(function(err, logs) {
       if (err) {
         console.log(err);
@@ -70,7 +72,7 @@ module.exports = function(req, res){
         return;
       }
       
-      res.send({"logs": logs});
+      res.send({"logs": logs, "count": logs.length});
     });
   }
 };
