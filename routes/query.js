@@ -23,7 +23,7 @@ module.exports = function(req, res){
   if(params === false) {
     models.AppLog.find({}, function(err, logs) {
       if (err) throw err;
-      res.send(logs);
+      res.send({"logs": logs});
     });
   } else {
     var query = models.AppLog;  
