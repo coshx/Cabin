@@ -9,5 +9,7 @@ MongoDB: 2.0.2
 Express: 2.5.2
 Connect: 1.8.5
 
-Backbone.js:
-Handlebars.js:
+Other useful things:
+
+post the sample log (sample_log.json) to server running on localhost:
+curl -i -H "Content-type: application/json" -X POST -d @sample_log.json http://localhost:3000/
