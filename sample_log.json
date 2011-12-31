@@ -3,8 +3,7 @@
   , "timestamp": 12345
   , "application": "sample app"
   , "location": "foobar.rb:123"
-  , "tags": ["tag1", "tag2"]
+  , "tags": "tag1, tag2, someOtherTag"
   , "severity": "info"
   , "message": "this is a sample"
-  , "messageKeywords": ["this", "is", "a", "sample"]
 }
