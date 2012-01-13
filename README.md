@@ -30,6 +30,7 @@ MongoDB: 2.0.2
 
 Starting Cabin
 --------------
+
 # Install Node, MongoDB, and NPM
 # Clone the GitHub repo
 # Enter the Cabin directory and run npm install
