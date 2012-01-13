@@ -1,3 +1,7 @@
+/*
+This is a small sample program that shows how to do a Node.js-style async HTTP request. It goes to a locally running cabin server
+and grabs some data. You can use it for sanity-checking your data if you need to.
+*/
 var http = require("http");
 var opts = {
   host: "localhost"

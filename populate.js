@@ -1,4 +1,8 @@
-//ref: http://www.theroamingcoder.com/node/111
+// Script to fill up your local MongoDB instance with some test data by posting to Cabin over and over.
+// Not recommended for production, obviously.
+// Some not-quite-natural looking code in here since this was a team hackathon effort and not everyone was used to writing JavaScript.
+
+// ref: http://www.theroamingcoder.com/node/111
 
 var querystring = require('querystring');
 var http = require("http");
