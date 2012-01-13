@@ -31,13 +31,13 @@ MongoDB: 2.0.2
 Starting Cabin
 --------------
 
-# Install Node, MongoDB, and NPM
-# Clone the GitHub repo
-# Enter the Cabin directory and run npm install
-# node app.js
-# ...your MongoDB database is empty, so to make it less so with 'node populate.js'
-# Pet your cat (or dog, or both)
-# Profit!
+1. Install Node, MongoDB, and NPM
+2. Clone the GitHub repo
+3. Enter the Cabin directory and run npm install
+4. node app.js
+5. ...your MongoDB database is empty, so to make it less so with 'node populate.js'
+6. Pet your cat (or dog, or both)
+7. Profit!
 
 Other useful things
 -------------------
